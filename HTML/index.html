@@ -107,7 +107,6 @@
     from {opacity: 0;}
     to {opacity: 1;}
   }
-  /* Simplified Registration Toggle Form */
 #toggle:checked + label + .form-box {
   display: block;
   margin-top: 15px;
@@ -119,35 +118,31 @@
 .form-box {
   display: none;
 }
-
+#toggleFeedback:checked + label + #feedbackBox {
+  display: block;
+}
 </style>
 </head>
 <body>
-
 <header>Community Event </header>
-
 <nav>
   <a href="#home">Home</a> |
   <a href="#events">Events</a> |
   <a href="#contact">Contact</a> |
   <a href="help.html" target="_blank">Help</a>
 </nav>
-
 <div id="welcomeBanner">
   <h1>Welcome,folks</h1>
   <p><strong style="color:#d93025;">Special Offer:</strong> Free entry for first 50 attendees!</p>
 </div>
-
 <section id="home">
   <h2>About Us</h2>
   <p>Stay connected with the recent happenings in your surroundings.</p>
 </section>
-
 <section id="events">
   <h2>Upcoming Events</h2>
   <p>Check the calendar for fun activities near you!</p>
 </section>
-
 <section id="gallery" class="gallery">
   <h2>Event Gallery</h2>
   <img src="img/event1.jpg" alt="Picnic" title="Picnic in the Park" />
@@ -158,43 +153,37 @@
   <figcaption style="color:#004080; font-weight:bold; margin-top:6px;">Entertainment fair event</figcaption>
 </section><style>
   .gallery {
-    display: flex; /* Align children horizontally */
-    gap: 20px; /* space between figures */
-    justify-content: center; /* center horizontally */
+    display: flex; 
+    gap: 20px; 
+    justify-content: center;
     margin-top: 20px;
   }
-
   .gallery-item {
     text-align: center;
   }
-
   .gallery-item img {
-    width: 150px; /* fixed size */
+    width: 150px; 
     height: auto;
     border-radius: 8px;
     border: 2px solid #004080;
     cursor: pointer;
     transition: transform 0.3s ease;
   }
-
   .gallery-item img:hover {
     transform: scale(1.1);
     box-shadow: 0 0 10px #004080;
   }
-
   .gallery-item figcaption {
     margin-top: 6px;
     color: #004080;
     font-weight: bold;
   }
 </style>
-
 <section id="geoSection">
   <h2>Find Nearby Events</h2>
   <button id="findEventsBtn">Find My Location</button>
   <p id="geoResult"></p>
 </section>
-
 <section id="preferences">
   <h2>Your Preferences</h2>
   <label for="preferredEvent">Preferred Event Type:</label>
@@ -209,11 +198,7 @@
 </section>
 <section id="registration">
   <h2>Register for an Event</h2>
-
-  <!-- Hidden checkbox toggle -->
   <input type="checkbox" id="toggle" style="display: none;">
-
-  <!-- Label acts as button -->
   <label for="toggle" style="
     background: #004080;
     color: white;
@@ -223,8 +208,6 @@
     cursor: pointer;
     font-weight: bold;
   ">Register</label>
-
-  <!-- Form box -->
   <div class="form-box">
     <form>
       <p><input type="text" placeholder="Your Name" required></p>
@@ -243,26 +226,39 @@
     </form>
   </div>
 </section>
-
 <section id="feedback">
   <h2>Event Feedback</h2>
-  <label>Phone Number:<br /><input type="tel" id="phone" onblur="validatePhone()" placeholder="123-456-7890"></label><br />
-  <label>Select Event:<br />
-    <select id="eventSelect" onchange="showFee()">
-      <option value="">-- Choose --</option>
-      <option value="Picnic - $10">Picnic</option>
-      <option value="Concert - $20">Concert</option>
-      <option value="Workshop - $15">Workshop</option>
-    </select>
-  </label>
-  <p id="feeDisplay"></p><br />
-  <label>Feedback:<br />
-    <textarea id="feedbackText" rows="4" onkeyup="countChars()"></textarea>
-  </label>
-  <p>Character count: <span id="charCount">0</span></p><br />
-  <input type="button" value="Submit Feedback" onclick="submitFeedback()" />
+  <input type="checkbox" id="toggleFeedback" style="display: none;">
+  <label for="toggleFeedback" style="
+    background: #004080;
+    color: white;
+    padding: 10px 16px;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  ">Give Feedback</label>
+  <div class="form-box" id="feedbackBox">
+    <label>Phone Number:<br />
+      <input type="tel" id="phone" onblur="validatePhone()" placeholder="123-456-7890">
+    </label><br />  
+    <label>Select Event:<br />
+      <select id="eventSelect" onchange="showFee()">
+        <option value="">-- Choose --</option>
+        <option value="Picnic - $10">Picnic</option>
+        <option value="Concert - $20">Concert</option>
+        <option value="Workshop - $15">Workshop</option>
+      </select>
+    </label>
+    <p id="feeDisplay"></p><br />    
+    <label>Feedback:<br />
+      <textarea id="feedbackText" rows="4" onkeyup="countChars()"></textarea>
+    </label>
+    <p>Character count: <span id="charCount">0</span></p><br />
+    
+    <input type="button" value="Submit Feedback" onclick="submitFeedback()" />
+  </div>
 </section>
-
 <section id="promoVideo">
   <h2>Promo Video</h2>
   <video id="eventVideo" width="320" controls oncanplay="videoReady()">
@@ -271,16 +267,12 @@
   </video>
   <p id="videoStatus"></p>
 </section>
-
 <section id="contact">
   <h2>Contact Us</h2>
   <p>Email: support@cityevents.org</p>
 </section>
-
 <footer>© 2025 Local City Council</footer>
-
 <script>
-  // Show geolocation coordinates on button click
   document.getElementById('findEventsBtn').onclick = function() {
     var result = document.getElementById('geoResult');
     if (!navigator.geolocation) {
@@ -296,13 +288,9 @@
       result.textContent = "Unable to retrieve your location.";
     });
   };
-
-  // User Preferences saved in localStorage
   var prefSelect = document.getElementById('preferredEvent');
   var prefStatus = document.getElementById('prefStatus');
   var clearButton = document.getElementById('clearPrefs');
-
-  // Load saved preference on page load
   window.onload = function() {
     var savedPref = localStorage.getItem('preferredEvent');
     if (savedPref) {
@@ -310,8 +298,6 @@
       prefStatus.textContent = "Loaded preference: " + savedPref;
     }
   };
-
-  // Save preference on change
   prefSelect.onchange = function() {
     var val = this.value;
     if(val) {
@@ -321,22 +307,16 @@
       prefStatus.textContent = "";
     }
   };
-
-  // Clear preference
   clearButton.onclick = function() {
     localStorage.removeItem('preferredEvent');
     prefSelect.value = "";
     prefStatus.textContent = "Preferences cleared.";
   };
-
-  // Form submission confirmation
   function confirmSubmit() {
     var conf = document.getElementById('formConfirmation');
-    conf.textContent = "✅ Registration submitted. Thank you!";
-    return false; // prevent actual form submit for demo
+    conf.textContent = " Registration submitted. Thank you!";
+    return false;
   }
-
-  // Phone validation on blur
   function validatePhone() {
     var phone = document.getElementById('phone').value;
     var pattern = /^\d{3}-\d{3}-\d{4}$/;
@@ -344,31 +324,20 @@
       alert("Please enter phone number as 123-456-7890");
     }
   }
-
-  // Show fee based on event selected
   function showFee() {
     var sel = document.getElementById('eventSelect');
     var fee = document.getElementById('feeDisplay');
     fee.textContent = sel.value ? "Fee: " + sel.value.split(" - ")[1] : "";
   }
-
-  // Count characters in feedback textarea
   function countChars() {
     var txt = document.getElementById('feedbackText').value;
     document.getElementById('charCount').textContent = txt.length;
   }
-
-  // Feedback submit alert
   function submitFeedback() {
-    alert("✅ Feedback submitted. Thank you!");
+    alert("Feedback submitted. Thank you!");
   }
-
-  // Video ready handler
   function videoReady() {
     document.getElementById('videoStatus').textContent = "🎬 Video is ready to play!";
   }
-</script>
-
-</body>
-</html>
+</script></body></html>
 
